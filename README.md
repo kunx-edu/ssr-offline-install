@@ -11,17 +11,24 @@
 
 # 本脚本适用环境：
 系统支持：CentOS，Debian，Ubuntu
+
 内存要求：≥128M
+
 日期：2018 年 01 月 26 日
 
 推荐使用[BandwagonHost](https://bwh1.net/aff.php?aff=12528)或[vultr](http://www.vultr.com/?ref=7130660)服务器搭建
+
 国外用户想走国内代理，推荐使用阿里云，这里提供一些可以享受优惠的[幸运券](https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=1zsox284&utm_source=1zsox284)
 
 # 默认配置：
 服务器端口：自己设定（如不设定，默认为5869）
+
 密码：自己设定（如不设定，默认为 blog.kunx.org）
+
 加密方式：自己设定（如不设定，默认为 aes-256-cfb）
+
 协议（Protocol）：自己设定（如不设定，默认为 origin）
+
 混淆（obfs）：自己设定（如不设定，默认为 plain）
 
 客户端下载：
@@ -34,9 +41,11 @@
 `git clone https://github.com/kunx-edu/ssr-offline-install.git`
 
 给安装脚本添加权限
+
 `chmod u+x shadowsocksR.sh`
 
 安装脚本
+
 `./shadowsocksR.sh 2>&1 | tee shadowsocksR.log`
 
 # 卸载
@@ -45,19 +54,25 @@
 
 使用命令：
 启动：`/etc/init.d/shadowsocks start`
+
 停止：`/etc/init.d/shadowsocks stop`
+
 重启：`/etc/init.d/shadowsocks restart`
+
 状态：`/etc/init.d/shadowsocks status`
 
+
 配置文件路径：`/etc/shadowsocks.json`
+
 日志文件路径：`/var/log/shadowsocks.log`
+
 代码安装目录：`/usr/local/shadowsocks`
 
 
 # 配置文件各项说明
 
 ### 各选项说明
->注意，你应该修改使用initcfg.sh脚本初始化后的user-config.json：
+> 注意，你应该修改使用initcfg.sh脚本初始化后的user-config.json：
 
 |Name| Explanation|中文说明|
 |---|---|---|
@@ -90,7 +105,6 @@
 |speed_limit_per_con|rate limit for each connection|单连接限速，单位KB|
 |speed_limit_per_user|rate limit for each user|单用户限速，单位KB|
 
-其中各protocol与obfs介绍参见：
 注：客户端的protocol和obfs配置必须与服务端的一致，除非服务端配置为兼容插件。
 
 **redirect参数说明：**
@@ -167,7 +181,9 @@
 
 # 注意事项
 本脚本没有对防火墙（IPv4 是 iptables，IPv6 是 ip6tables）进行任何设置。
+
 因此，在安装完毕，如果你发现连接不上，可以尝试更改防火墙设置或关闭防火墙。
+
 阿里云请修改安全组规则，添加你设定的端口
 
 
