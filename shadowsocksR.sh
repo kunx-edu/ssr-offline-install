@@ -14,11 +14,9 @@ echo
 echo "#############################################################"
 echo "# One click Install ShadowsocksR Server                     #"
 echo "# Offline package by  kunx<kunx-edu@qq.com>                 #"
-echo "# Author: kunx <kunx@qq.com>                                #"
+echo "# Author: kunx <kunx-edu@qq.com>                            #"
 echo "# link: https://blog.kunx.org                               #"
-echo "#                                                           #"
-echo "# Intro: https://shadowsocks.be/9.html                      #"
-echo "# Github: https://github.com/shadowsocksr/shadowsocksr      #"
+echo "# Github: https://github.com/kunx-edu/ssr-offline-install   #"
 echo "#############################################################"
 echo
 
