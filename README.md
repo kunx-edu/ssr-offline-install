@@ -31,7 +31,7 @@
 > 所有操作都使用root用户
 
 下载工具
-`git clone https://github.com/kunx-edu/ssr-offline-install`
+`git clone https://github.com/kunx-edu/ssr-offline-install.git`
 
 给安装脚本添加权限
 `chmod u+x shadowsocksR.sh`
