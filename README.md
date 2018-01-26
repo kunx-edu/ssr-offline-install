@@ -16,7 +16,12 @@
 
 日期：2018 年 01 月 26 日
 
-推荐使用[BandwagonHost](https://bwh1.net/aff.php?aff=12528)或[vultr](http://www.vultr.com/?ref=7130660)服务器搭建
+推荐使用以下服务器搭建，原因不解释:
+
+[BandwagonHost](https://bwh1.net/aff.php?aff=12528)
+
+[vultr](http://www.vultr.com/?ref=7130660)
+
 
 国外用户想走国内代理，推荐使用阿里云，这里提供一些可以享受优惠的[幸运券](https://promotion.aliyun.com/ntms/act/ambassador/sharetouser.html?userCode=1zsox284&utm_source=1zsox284)
 
@@ -38,6 +43,7 @@
 > 所有操作都使用root用户
 
 下载工具
+
 `git clone https://github.com/kunx-edu/ssr-offline-install.git`
 
 给安装脚本添加权限
@@ -177,7 +183,9 @@
     "workers": 1
 }
 ```
-按格式修改端口、密码以及混淆协议。也可以和以前的格式混合使用，如果某个端口不配置混淆协议，则会使用下面的默认"obfs"配置。
+按格式修改端口、密码以及混淆协议。
+
+也可以和以前的格式混合使用，如果某个端口不配置混淆协议，则会使用下面的默认"obfs"配置。
 
 # 注意事项
 本脚本没有对防火墙（IPv4 是 iptables，IPv6 是 ip6tables）进行任何设置。
