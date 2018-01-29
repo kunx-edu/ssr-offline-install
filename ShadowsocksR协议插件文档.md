@@ -68,7 +68,7 @@
 以下所有协议与均 anti CPA
 
 |name|RTT|encode speed|bandwidth|anti CCA|anti replay attack|anti MITM detect|anti packet length analysis|
-|-|-|-|-|-|-|-|
+|---|---|---|---|---|---|---|---|
 |origin|0|100%|99%|No|No|No|0|
 |verify_deflate|0|30%|97%~110%|No|No|No|6|
 |verify_sha1 (X)|0|85%|98%/99%|No|No|No|0|
@@ -78,6 +78,7 @@
 |auth_aes128_md5|0|80%|70%/98%|Yes|Yes|Yes|10|
 |auth_aes128_sha1|0|70%|70%/98%|Yes|Yes|Yes|10|
 |auth_chain_a|0|70%|75%/98%|Yes|Yes|Yes|15|
+
 说明：
 
 - 以上为浏览普通网页（非下载非看视频）的平均测试结果，浏览不同的网页会有不同的偏差
