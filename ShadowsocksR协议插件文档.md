@@ -104,38 +104,69 @@
 ## 配置方法
 服务端配置：使用最新SSR的manyuser分支
 user-config.json或config.json里有一个protocol的字段，目前的可能取值为：
+
 `origin`
+
 `verify_deflate` （不建议）
+
 `verify_sha1` （已过时）
+
 `verify_sha1_compatible` （已过时）
+
 `auth_sha1` （已过时）
+
 `auth_sha1_compatible` （已过时）
+
 `auth_sha1_v2` （已过时）
+
 `auth_sha1_v2_compatible` （已过时）
+
 `auth_sha1_v4` （不建议）
+
 `auth_sha1_v4_compatible` （不建议）
+
 `auth_aes128_md5`
+
 `auth_aes128_sha1`
+
 `auth_chain_a`
 
+
 user-config.json或config.json里有一个obfs的字段，目前的可能取值为：
+
 `plain`
+
 `http_simple`
+
 `http_simple_compatible`
+
 `http_post`
+
 `http_post_compatible`
+
 `random_head` （已过时）
+
 `random_head_compatible` （已过时）
+
 `tls1.2_ticket_auth`
+
 `tls1.2_ticket_auth_compatible`
 
+
 默认为
+
 `"protocol":"auth_aes128_md5",`
+
 `"obfs":"tls1.2_ticket_auth_compatible",`
+
 相应的
+
 协议插件参数默认为`"protocol_param":""`
+
 混淆插件参数默认为`"obfs_param":""`
+
 对于protocol，必须服务端与客户端严格匹配
+
 服务端配置为`xxabc_compatible`时（以compatible为后缀的），即服务端**支持使用原版客户端**，或使用配置插件为`xxabc`或`plain`的ssr客户端。
 
 客户端配置：使用本ssr版本，在编辑服务器配置里找到相应节点，最后在protocol选项和obfs选项的列表里选择需要使用的插件，然后填写相应的参数即可
@@ -159,6 +190,7 @@ interface IObfs
 说明：第一次创建实例前调用，同一服务端配置不会重复调用，服务端在建立监听时调用，客户端在第一次连接时调用。
 
 `SetServerInfo(ServerInfo serverInfo)`
+
 参数：ServerInfo结构，包含成员变量：
 
 - host: 字符串类型，服务端ip，客户端需要把域名转换为ip，如有前置代理，则直接使用配置时所用的域名也可，服务端需要获取监听ip
@@ -170,75 +202,119 @@ interface IObfs
 - key: 加密时使用的key（不是原key，是通过BytesToKey生成的指定长度数组）
 - tcp_mss: 整数类型，TCP分包大小，设置为1460
 - overhead: 整数类型，协议头部大小，需要由调用方设置
+
 返回：无
+
 说明：实例构造的时候（每个连接建立时）调用，调用前iv和key必须已经初始化；而接收到数据后先初始化recv_iv再调用插件。
 
+
 `int GetOverhead()` 参数：无
+
 返回：此插件在通信时的附加头部大小
 
 `Dispose()`
+
 参数：无
+
 返回：无
+
 说明：实例析构时（每个连接关闭时）调用
 
 `byte[] ClientPreEncrypt(byte[] plaindata, int datalength, out int outlength)`
+
 参数：需要处理的字节数组及其长度
+
 返回：处理后的字节数组及其长度
+
 说明：客户端发送到服务端数据**加密前**调用此接口
 
 `byte[] ClientEncode(byte[] encryptdata, int datalength, out int outlength)`
+
 参数：需要编码的字节数组及其长度
+
 返回：编码后的字节数组及其长度
+
 说明：客户端发送到服务端数据**加密后**调用此接口
 
 `byte[] ClientDecode(byte[] encryptdata, int datalength, out int outlength, out bool needsendback)`
+
 参数：需要解码的字节数组及其长度
+
 返回：解码后的字节数组及其长度，以及needsendback标记是否立即回发服务端数据。如needsendback为true，则会立即调用ClientEncode，调用时参数是一个长度为0的字节数组
+
 说明：客户端收到服务端数据在**解密前**调用此接口
 
 `byte[] ClientPostDecrypt(byte[] plaindata, int datalength, out int outlength)`
+
 参数：需要处理的字节数组及其长度
+
 返回：处理后的字节数组及其长度
+
 说明：客户端收到服务端数据在**解密后**调用此接口
 
+
 `byte[] ServerPreEncrypt(byte[] plaindata, int datalength, out int outlength)`
+
 参数：需要处理的字节数组及其长度
+
 返回：处理后的字节数组及其长度
+
 说明：服务端发送到客户端数据**加密前**调用此接口
 
 `byte[] ServerEncode(byte[] encryptdata, int datalength, out int outlength)`
+
 参数：需要编码的字节数组及其长度
+
 返回：编码后的字节数组及其长度
+
 说明：服务端发送到客户端数据**加密后**调用此接口
 
 `byte[] ServerDecode(byte[] encryptdata, int datalength, out int outlength, out bool needdecrypt, out bool needsendback)`
+
 参数：需要解码的字节数组及其长度
+
 返回：解码后的字节数组及其长度，以及needdecrypt标记数据是否需要解密（一般都应该为true），以及needsendback标记是否立即回发客户端数据。如needsendback为true，则会立即调用ServerEncode并发送其返回结果，调用时参数是一个长度为0的字节数组
+
 说明：服务端收到客户端数据在**解密前**调用此接口
 
 `byte[] ServerPostDecrypt(byte[] plaindata, int datalength, out int outlength)`
+
 参数：需要处理的字节数组及其长度
+
 返回：处理后的字节数组及其长度
+
 说明：服务端收到客户端数据在**解密后**调用此接口
 
 `byte[] ClientUdpPreEncrypt(byte[] plaindata, int datalength, out int outlength)`
+
 参数：需要处理的字节数组及其长度
+
 返回：处理后的字节数组及其长度
+
 说明：客户端发送到服务端UDP数据**加密前**调用此接口
 
 `byte[] ClientUdpPostDecrypt(byte[] plaindata, int datalength, out int outlength)`
+
 参数：需要处理的字节数组及其长度
+
 返回：处理后的字节数组及其长度
+
 说明：客户端收到服务端UDP数据在**解密后**调用此接口
 
 `byte[] ServerUdpPreEncrypt(byte[] plaindata, int datalength, out int outlength)`
+
 参数：需要处理的字节数组及其长度
+
 返回：处理后的字节数组及其长度
+
 说明：服务端发送到客户端UDP数据**加密前**调用此接口
 
 `byte[] ServerUdpPostDecrypt(byte[] plaindata, int datalength, out int outlength)`
+
 参数：需要处理的字节数组及其长度
+
 返回：处理后的字节数组及其长度
+
 说明：服务端收到客户端UDP数据在**解密后**调用此接口
 
 ## 插件编写
